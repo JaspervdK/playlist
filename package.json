@@ -1,0 +1,19 @@
+{
+  "name": "playlist",
+  "version": "1.0.0",
+  "description": "playlist scraper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaspervdK/playlist.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaspervdK/playlist/issues"
+  },
+  "homepage": "https://github.com/JaspervdK/playlist#readme"
+}
