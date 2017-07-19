@@ -11,33 +11,37 @@ const server = http.createServer(function(req, res) {
 
 server.listen(8080);
 let oldDate = new Date();
+let song = '';
 const job = new CronJob({
     cronTime: '0 */2 * * * *', 
     onTick: function () {
         request('http://radiostad.org/nowplaying/songinfo.html', function (err, response, body) {
+
             if (err) {
                 return console.log(err);
             }
-            let date = new Date();
-            if (oldDate.getDate !== date.getDate) {
-                oldDate = date;
-            }
-            let output = DateFormat(date, 'hh:mm') + ': ' + body + '\r\n';
-            let filePath = './playlist/playlist-' + DateFormat(oldDate, 'dd-mm-yyyy') + '.txt';
-            fs.appendFile(filePath, output, function (err) {
-                if (err) {
-                    
-                    fs.closeSync(fs.openSync(filePath, 'a'));
-                    fs.appendFile(filePath, output, function (err) {
-                        if (err) {
-                            console.log(err);
-                        }
-                    });
+            if (song !== body) {
+                song = body;
+                const date = new Date();
+                if (oldDate.getDate !== date.getDate) {
+                    oldDate = date;
                 }
-                console.log('Saved: ' + output);
-            })
+                const output = DateFormat(date, 'hh:MM') + ': ' + body + '\r\n';
+                const filePath = './playlist/playlist-' + DateFormat(oldDate, 'dd-mm-yyyy') + '.txt';
+                fs.appendFile(filePath, output, function (err) {
+                    if (err) {
+                    
+                        fs.closeSync(fs.openSync(filePath, 'a'));
+                        fs.appendFile(filePath, output, function (err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                    console.log('Saved: ' + output);
+                });
+            }
         });
-        
     }, 
     start: true,
     timezone: 'Europe'
