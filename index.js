@@ -18,12 +18,12 @@ const job = new CronJob({
             if (err) {
                 return console.log(err);
             }
-            const date = new Date();
+            let date = new Date();
             if (oldDate.getDate !== date.getDate) {
                 oldDate = date;
             }
-            const output = DateFormat(date, 'hh:mm') + ': ' + body + '\r\n';
-            const filePath = './playlist/playlist-' + DateFormat(oldDate, 'dd-mm-yyyy') + '.txt';
+            let output = DateFormat(date, 'hh:mm') + ': ' + body + '\r\n';
+            let filePath = './playlist/playlist-' + DateFormat(oldDate, 'dd-mm-yyyy') + '.txt';
             fs.appendFile(filePath, output, function (err) {
                 if (err) {
                     
@@ -34,7 +34,7 @@ const job = new CronJob({
                         }
                     });
                 }
-                console.log(output);
+                console.log('Saved: ' + output);
             })
         });
         
